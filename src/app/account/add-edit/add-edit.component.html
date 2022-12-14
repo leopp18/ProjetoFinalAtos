@@ -1,0 +1,20 @@
+<form>
+    <div class="mb-3">
+        <label for="software" class="form-label">Software</label>
+        <input type="text" class="form-control"[(ngModel)]="software" name="software">
+    </div>
+    <div class="mb-3">
+        <label for="login" class="form-label">Login</label>
+        <input type="text" class="form-control"[(ngModel)]="login" name="login">
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Senha</label>
+        <input type="text" class="form-control"[(ngModel)]="password" name="password">
+    </div>
+    <button (click)="addAccount()" *ngIf="account.id==0" class="btn btn-primary">
+        Adicionar
+    </button>
+    <button (click)="updateAccount()" *ngIf="account.id!=0" class="btn btn-primary">
+        Editar
+    </button>
+</form>
