@@ -1,8 +1,10 @@
 ﻿using FinalProject.Data;
 using FinalProject.Models;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinalProject.Controllers
 {
@@ -11,6 +13,21 @@ namespace FinalProject.Controllers
 
     public class AccountController : ControllerBase
     {
+        //private readonly IDataProtector _protector;
+
+        //public AccountController(IDataProtectionProvider provider)
+        //{
+        //    _protector = provider.CreateProtector("38%9¨&8$2@49");
+        //}
+
+        private readonly IJWTAuthenticationManager jwtAuthenticationManager;
+
+        public AccountController(IJWTAuthenticationManager jwtAuthenticationManager)
+        {
+            this.jwtAuthenticationManager = jwtAuthenticationManager;
+        }
+
+
         [HttpGet]
         [Route("accounts")]
 
@@ -31,12 +48,12 @@ namespace FinalProject.Controllers
             [FromServices] Contexto contexto,
             [FromRoute] int id)
         {
-            var pessoas = await contexto
+            var accounts = await contexto
                 .Accounts
                 .AsNoTracking()
-                .FirstOrDefaultAsync(p => p.Id == id);
+                .FirstOrDefaultAsync(a => a.Id == id);
 
-            return pessoas == null ? NotFound() : Ok(pessoas);
+            return accounts == null ? NotFound() : Ok(accounts);
         }
 
 
@@ -54,6 +71,9 @@ namespace FinalProject.Controllers
 
             try
             {
+                //string text = this._protector.Protect(account.Password);
+                //account.Password = text;
+
                 await contexto.Accounts.AddAsync(account);
                 await contexto.SaveChangesAsync();
                 return Created($"api/Accounts/{account.Id}", account);
@@ -81,6 +101,11 @@ namespace FinalProject.Controllers
 
             try
             {
+                //string text = account.Password;
+                //p.encrypt(text);
+                //account.Password = text;
+
+
                 a.Software = account.Software;
                 a.Login = account.Login;
                 a.Password = account.Password;
@@ -118,6 +143,22 @@ namespace FinalProject.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+
+        public IActionResult Authenticate([FromBody] Usuario user)
+        {
+            var token = jwtAuthenticationManager.Authenticate(
+                user.Username, user.Password);
+
+            if (token == null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(token);
         }
     }
 }

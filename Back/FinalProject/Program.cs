@@ -1,5 +1,8 @@
 using FinalProject.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace FinalProject
 {
@@ -18,6 +21,34 @@ namespace FinalProject
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<Contexto>();
 
+            var tokenKey = "aqui minha chave privada";
+            var key = Encoding.ASCII.GetBytes(tokenKey);
+
+            builder.Services.AddAuthentication(
+                     x =>
+                        {
+                            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                        }
+                    ).AddJwtBearer(
+                        x =>
+                        {
+                            x.RequireHttpsMetadata = false;
+                            x.SaveToken = true;
+                            x.TokenValidationParameters = new TokenValidationParameters
+                            {
+                                ValidateIssuerSigningKey = true,
+                                IssuerSigningKey = new SymmetricSecurityKey(key),
+                                ValidateIssuer = false,
+                                ValidateAudience = false
+                            };
+                        }
+                    );
+
+            builder.Services.AddSingleton<IJWTAuthenticationManager>
+                (new JWTAuthenticationManager(tokenKey));
+
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy(name: myAllowSpecificOrigins,
@@ -28,6 +59,14 @@ namespace FinalProject
                         policy.AllowAnyHeader();
                     });
             });
+
+            // add data protection services
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddDataProtection();
+            var services = serviceCollection.BuildServiceProvider();
+            
+
+
 
             var app = builder.Build();
 

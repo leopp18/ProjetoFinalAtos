@@ -88,3 +88,4 @@ C:\Users\leopp\OneDrive\Área de Trabalho\Atos\FinalProject\FinalProject\bin\Deb
 C:\Users\leopp\OneDrive\Área de Trabalho\Atos\FinalProject\FinalProject\bin\Debug\net6.0\System.Web.Http.Cors.dll
 C:\Users\leopp\OneDrive\Área de Trabalho\Atos\FinalProject\FinalProject\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\leopp\OneDrive\Área de Trabalho\Atos\FinalProject\FinalProject\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\leopp\OneDrive\Área de Trabalho\Atos\FinalProject\FinalProject\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
