@@ -1,3 +1,17 @@
-<h1 class="text-center">App Vault</h1>
-<br>
-<app-show-accounts></app-show-accounts>
+<!--login-->
+<div id="formulario">
+    <form name = "auth" method = "get">
+        <h4 for="nome" class ="labelForm">Login:</h4>
+        <input type="text" [(ngModel)]="username" name ="nome"/>
+        <br><br>
+        <h4 for="senha" class ="labelForm">Senha:</h4>
+        <input type="password" [(ngModel)]="authPass" name ="senha" id="senha"/>
+        <br>
+        <br>
+        <button (click)="authenticateUser()" class="btn btn-primary">Entrar</button>
+    </form>
+</div>
+<div id="tabela">
+    <app-show-accounts></app-show-accounts>
+</div>
+

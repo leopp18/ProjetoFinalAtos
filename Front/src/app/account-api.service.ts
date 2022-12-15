@@ -11,15 +11,13 @@ export class AccountApiService {
 
   constructor(private http:HttpClient) { }
 
+  // authUser(data:any):Observable<any>{
+  //   return this.http.post(this.VaultAPIUrl + '/Account/authenticate', data);//aqui
+  // }
+
   getAccountList():Observable<any[]>{
     return this.http.get<any>(this.VaultAPIUrl + '/Account/accounts');
   }
-
-  getHideList(){
-    return this.http.get<any>(this.VaultAPIUrl + '/Account/account');
-  }
-
-  //faltando getById
 
   addAccount(data:any){
     return this.http.post(this.VaultAPIUrl + '/Account/accounts', data);

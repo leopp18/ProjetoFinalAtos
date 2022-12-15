@@ -68,30 +68,4 @@ export class ShowAccountsComponent implements OnInit {
     this.accountList$ = this.service.getAccountList();
   }
 
-
-  hideDataFromTable(){
-    // let data = document.getElementById("data");
-    // let op = '0';
-    // if(data != undefined){
-    //   if(data.textContent!='******'){
-    //     op = '1';
-    //   }
-    // }
-
-    // if(op = '1'){
-    //   let text = document.getElementById("data");
-    //   if(text != undefined){
-    //     text.textContent = '******';
-    //   }
-    // }else{
-    //   this.accountList$ = this.service.getAccountList();
-    // }
-
-
-
-    // var text = document.getElementById("data");
-    // if(text != undefined){
-    //   text.style.display="none";
-    // }
-  }
 }

@@ -9,16 +9,15 @@ import { AccountComponent } from './account/account.component';
 import { AddEditComponent } from './account/add-edit/add-edit.component';
 import { AccountApiService } from './account-api.service';
 import { ShowAccountsComponent } from './show-accounts/show-accounts.component';
-//faltando showcomponent
 
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     AccountComponent,
     AddEditComponent,
     ShowAccountsComponent
-  ],
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
